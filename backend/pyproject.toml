@@ -1,0 +1,30 @@
+[project]
+name = "research-assistant-backend"
+version = "0.1.0"
+description = "Multi-domain research assistant backend (Module 0 skeleton)"
+requires-python = ">=3.11"
+dependencies = [
+    "alembic>=1.20.1",
+    "fastapi>=0.164.0",
+    "google-genai>=3.5.0",
+    "psycopg[binary]>=3.3.9",
+    "pydantic>=2.14.3",
+    "pydantic-settings>=2.16.3",
+    "pyyaml>=6.0.3",
+    "qdrant-client>=1.20.0",
+    "sqlalchemy>=2.1.9",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.2.0",
+]

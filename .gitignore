@@ -1,0 +1,29 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Local data (source documents may carry licence limits)
+storage/*
+!storage/.gitkeep
+*.dump
+*.sql.gz
+*.snapshot
+qdrant_storage/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# OS / editor
+.DS_Store
+Thumbs.db

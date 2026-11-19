@@ -1,0 +1,40 @@
+name: finance
+display_name: Finance
+enabled: true   # the enable gate keeps it off until an eval run passes (Module 9); see ALLOW_UNEVALUATED_DOMAINS
+
+sources:
+  - type: pdf_folder
+    path: storage/finance/filings
+  - type: csv
+    path: storage/finance/tables
+
+chunking:
+  strategy: by_clause
+  max_tokens: 768
+  overlap_tokens: 96
+  keep_tables_whole: true
+
+retrieval:
+  top_k: 6
+  candidate_k: 30
+  hybrid: true
+  keyword_weight: 0.4
+  rerank: true
+
+access:
+  allowed_roles: [researcher, analyst, admin]
+  default_doc_label: internal
+
+generation:
+  disclaimer: "This is a research summary, not financial advice. Consult a licensed adviser before making financial decisions."
+  require_citations: true
+  refuse_topics:
+    - personal investment recommendations
+    - tax advice for an individual
+
+eval:
+  min_recall_at_5: 0.80
+  min_faithfulness: 0.90
+  min_citation_precision: 0.90
+  custom_checks:
+    - includes_disclaimer

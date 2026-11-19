@@ -1,0 +1,42 @@
+name: healthcare
+display_name: Healthcare
+enabled: true   # the enable gate keeps it off until an eval run passes (Module 9); see ALLOW_UNEVALUATED_DOMAINS
+
+sources:
+  - type: pdf_folder
+    path: storage/healthcare/guidelines
+  - type: web_page
+    urls:
+      - https://example.org/placeholder-health-page
+
+chunking:
+  strategy: by_heading
+  max_tokens: 512
+  overlap_tokens: 64
+  keep_tables_whole: true
+
+retrieval:
+  top_k: 5
+  candidate_k: 20
+  hybrid: true
+  keyword_weight: 0.3
+  rerank: true
+
+access:
+  allowed_roles: [researcher, clinician, admin]
+  default_doc_label: public
+
+generation:
+  disclaimer: "This is a research summary, not medical advice. Consult a qualified clinician for personal health decisions."
+  require_citations: true
+  refuse_topics:
+    - personal diagnosis
+    - medication dosing for an individual
+
+eval:
+  min_recall_at_5: 0.80
+  min_faithfulness: 0.90
+  min_citation_precision: 0.90
+  custom_checks:
+    - includes_disclaimer
+    - includes_safety_caveat
